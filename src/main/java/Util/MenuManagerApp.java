@@ -4,6 +4,7 @@ import Entity.Menu.BasicButton;
 import Entity.Menu.Button;
 import Entity.Menu.ComplexButton;
 import Entity.Menu.Menu;
+import Resource.Global;
 import api.MenuSupport;
 
 /**
@@ -31,79 +32,43 @@ public class MenuManagerApp {
      */
     private static Menu getMenu() {
         BasicButton btn11 = new BasicButton();
-        btn11.setName("天气预报");
+        btn11.setName("账户资金");
         btn11.setType("click");
-        btn11.setKey("11");
+        btn11.setKey(Global.EVENT_ACCOUNT_PROFILE);
 
         BasicButton btn12 = new BasicButton();
-        btn12.setName("公交查询");
+        btn12.setName("持有标的");
         btn12.setType("click");
-        btn12.setKey("12");
+        btn12.setKey(Global.EVENT_SUBJECTS);
 
         BasicButton btn13 = new BasicButton();
-        btn13.setName("周边搜索");
+        btn13.setName("充值");
         btn13.setType("click");
-        btn13.setKey("13");
+        btn13.setKey(Global.EVENT_TOPUP);
 
         BasicButton btn14 = new BasicButton();
-        btn14.setName("历史上的今天");
+        btn14.setName("取现");
         btn14.setType("click");
-        btn14.setKey("14");
+        btn14.setKey(Global.EVENT_WITHDRAW);
 
-        BasicButton btn21 = new BasicButton();
-        btn21.setName("歌曲点播");
-        btn21.setType("click");
-        btn21.setKey("21");
-
-        BasicButton btn22 = new BasicButton();
-        btn22.setName("经典游戏");
-        btn22.setType("click");
-        btn22.setKey("22");
-
-        BasicButton btn23 = new BasicButton();
-        btn23.setName("美女电台");
-        btn23.setType("click");
-        btn23.setKey("23");
-
-        BasicButton btn24 = new BasicButton();
-        btn24.setName("人脸识别");
-        btn24.setType("click");
-        btn24.setKey("24");
-
-        BasicButton btn25 = new BasicButton();
-        btn25.setName("聊天唠嗑");
-        btn25.setType("click");
-        btn25.setKey("25");
-
-        BasicButton btn31 = new BasicButton();
-        btn31.setName("Q友圈");
-        btn31.setType("click");
-        btn31.setKey("31");
-
-        BasicButton btn32 = new BasicButton();
-        btn32.setName("电影排行榜");
-        btn32.setType("click");
-        btn32.setKey("32");
-
-        BasicButton btn33 = new BasicButton();
-        btn33.setName("幽默笑话");
-        btn33.setType("click");
-        btn33.setKey("33");
 
         ComplexButton mainBtn1 = new ComplexButton();
-        mainBtn1.setName("生活助手");
+        mainBtn1.setName("我的资产");
         mainBtn1.setSub_button(new BasicButton[]{btn11, btn12, btn13, btn14});
 
-        ComplexButton mainBtn2 = new ComplexButton();
-        mainBtn2.setName("休闲驿站");
-        mainBtn2.setSub_button(new BasicButton[]{btn21, btn22, btn23, btn24, btn25});
 
-        ComplexButton mainBtn3 = new ComplexButton();
-        mainBtn3.setName("更多体验");
-        mainBtn3.setSub_button(new BasicButton[]{btn31, btn32, btn33});
+        BasicButton btn2 = new BasicButton();
+        btn2.setName("我要投资");
+        btn2.setType("click");
+        btn2.setKey(Global.EVENT_INVESTMENT);
+
+        BasicButton btn3 = new BasicButton();
+        btn3.setName("优惠资讯");
+        btn3.setType("click");
+        btn3.setKey(Global.EVENT_SALES_INFO);
 
         Menu menu = new Menu();
-        menu.setButton(new Button[]{mainBtn1, mainBtn2, mainBtn3});
+        menu.setButton(new Button[]{mainBtn1, btn2, btn3});
 
         return menu;
     }

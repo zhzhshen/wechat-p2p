@@ -5,8 +5,21 @@ package Service;
  *
  * Handle the incoming text messages
  */
-public class TextMessageHandler {
-    public static String processRequest(String content){
+public class TextMessageHandler implements IMessageHandler{
+    private static TextMessageHandler instance = null;
+
+    public static TextMessageHandler getInstance(){
+        if (instance == null) {
+            synchronized (TextMessageHandler.class) {
+                if (instance == null) {
+                    instance = new TextMessageHandler();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public String processRequest(String content){
         String result = null;
         if (content == null || content.equals("?")){
             result = getMainMenu();

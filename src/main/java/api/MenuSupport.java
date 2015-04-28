@@ -22,6 +22,7 @@ public class MenuSupport {
         String url = Global.MENU_CREATE_URL.replace("ACCESS_TOKEN", BasicSupport.getAccessToken().getToken());
         // 将菜单对象转换成json字符串
         String jsonMenu = new JSONObject(menu).toString();
+        System.out.println(jsonMenu);
         // 调用接口创建菜单
         JSONObject jsonObject = HttpHelper.httpRequest(url, "POST", jsonMenu);
 

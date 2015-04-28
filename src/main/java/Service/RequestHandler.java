@@ -1,6 +1,7 @@
 package Service;
 
 import Entity.Response.TextMessage;
+import Resource.Global;
 import Util.MessageUtil;
 import Util.SignUtil;
 import org.slf4j.Logger;
@@ -15,7 +16,7 @@ import java.util.Map;
  *
  * Handle the incoming requests
  */
-public class RequestHandler {
+public class RequestHandler{
     static Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
     public static String processRequest(HttpServletRequest request) {
@@ -51,7 +52,7 @@ public class RequestHandler {
 
         // 文本消息
         if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-            respContent = TextMessageHandler.processRequest(content);
+            respContent = TextMessageHandler.getInstance().processRequest(content);
         }
         // 图片消息
         else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
@@ -73,17 +74,18 @@ public class RequestHandler {
         else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
             // 事件类型
             String eventType = requestMap.get("Event");
+            String eventKey = requestMap.get("EventKey");
             // 订阅
             if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                respContent = "谢谢您的关注！";
+                respContent = "谢谢您的关注！我猜你是小明明";
             }
             // 取消订阅
             else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
-                // TODO 取消订阅后用户再收不到公众号发送的消息，因此不需要回复消息
             }
             // 自定义菜单点击事件
             else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
-                // TODO 自定义菜单权没有开放，暂不处理该类消息
+                log.debug("自定义菜单click事件");
+                respContent = EventMessageHandler.getInstance().processRequest(eventKey,content);
             }
         }
 
