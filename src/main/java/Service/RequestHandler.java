@@ -1,7 +1,6 @@
 package Service;
 
 import Entity.Response.TextMessage;
-import Resource.Global;
 import Util.MessageUtil;
 import Util.SignUtil;
 import org.slf4j.Logger;
@@ -35,7 +34,7 @@ public class RequestHandler{
             e.printStackTrace();
         }
 
-        String fromUserName = requestMap.get("FromUserName");
+        String openId = requestMap.get("FromUserName");
         // 公众帐号
         String toUserName = requestMap.get("ToUserName");
         // 消息类型
@@ -44,7 +43,7 @@ public class RequestHandler{
 
         // 回复文本消息
         TextMessage textMessage = new TextMessage();
-        textMessage.setToUserName(fromUserName);
+        textMessage.setToUserName(openId);
         textMessage.setFromUserName(toUserName);
         textMessage.setCreateTime(new Date().getTime());
         textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
@@ -52,7 +51,7 @@ public class RequestHandler{
 
         // 文本消息
         if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-            respContent = TextMessageHandler.getInstance().processRequest(content);
+            respContent = TextMessageHandler.getInstance().processRequest(openId, content);
         }
         // 图片消息
         else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
@@ -77,7 +76,7 @@ public class RequestHandler{
             String eventKey = requestMap.get("EventKey");
             // 订阅
             if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                respContent = "谢谢您的关注！我猜你是小明明";
+                respContent = "谢谢您的关注！";
             }
             // 取消订阅
             else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {

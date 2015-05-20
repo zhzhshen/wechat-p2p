@@ -41,4 +41,12 @@ public interface Global {
     public final static String EVENT_WITHDRAW = "EVENT_WITHDRAW";
     public final static String EVENT_INVESTMENT = "EVENT_INVESTMENT";
     public final static String EVENT_SALES_INFO = "EVENT_SALES_INFO";
+
+    public final static String SUBJECTS_URL = "http://52.68.149.90/www/#/subjects";
+
+    /**
+     * Messages
+     */
+    public final static String MESSAGE_NEED_LOGIN = "NEED_TO_LOGIN";
+
 }

@@ -24,6 +24,8 @@ public class EventMessageHandler {
 
         if (eventKey.equals(Global.EVENT_ACCOUNT_PROFILE)){
             result = "查看账户资金";
+            // Mock for login
+
         } else if (eventKey.equals(Global.EVENT_SUBJECTS)) {
             result = "查看持有标的";
         } else if (eventKey.equals(Global.EVENT_TOPUP)) {

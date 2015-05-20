@@ -1,9 +1,6 @@
 package Util;
 
-import Entity.Menu.BasicButton;
-import Entity.Menu.Button;
-import Entity.Menu.ComplexButton;
-import Entity.Menu.Menu;
+import Entity.Menu.*;
 import Resource.Global;
 import api.MenuSupport;
 
@@ -50,17 +47,17 @@ public class MenuManagerApp {
         btn14.setName("取现");
         btn14.setType("click");
         btn14.setKey(Global.EVENT_WITHDRAW);
-
+        
 
         ComplexButton mainBtn1 = new ComplexButton();
         mainBtn1.setName("我的资产");
         mainBtn1.setSub_button(new BasicButton[]{btn11, btn12, btn13, btn14});
 
 
-        BasicButton btn2 = new BasicButton();
+        ViewButton btn2 = new ViewButton();
         btn2.setName("我要投资");
-        btn2.setType("click");
-        btn2.setKey(Global.EVENT_INVESTMENT);
+        btn2.setType("view");
+        btn2.setUrl(Global.SUBJECTS_URL);
 
         BasicButton btn3 = new BasicButton();
         btn3.setName("优惠资讯");

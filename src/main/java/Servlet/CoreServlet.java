@@ -1,6 +1,8 @@
 package Servlet;
 
 import Service.RequestHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,8 @@ import java.io.PrintWriter;
  *
  */
 public class CoreServlet extends HttpServlet {
+    private static Logger logger = LoggerFactory.getLogger(AccessTokenServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (!RequestHandler.validate(request)) {
@@ -31,6 +35,8 @@ public class CoreServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.debug("Post request received");
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 

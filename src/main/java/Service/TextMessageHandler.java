@@ -19,22 +19,25 @@ public class TextMessageHandler implements IMessageHandler{
         return instance;
     }
 
-    public String processRequest(String content){
-        String result = null;
+    public String processRequest(String openId, String content) {
+        String result;
         if (content == null || content.equals("?")){
             result = getMainMenu();
         }
         else if (content.equals("1")){
-            result = getLoginPage();
+            result = getLoginPage(openId);
         } else {
             result = getMainMenu();
         }
         return result;
     }
 
-    private static String getLoginPage() {
-        String url = "<a href=\"http://pre.quboqu.com/login\">登录</a>";
-        return url;
+    public String processRequest(String content){
+        return null;
+    }
+
+    private static String getLoginPage(String openId) {
+       return "<a href=\"http://52.68.149.90/www/#/mobileCheck/"+openId+"\">登录</a>";
     }
 
     public static String getMainMenu(){
