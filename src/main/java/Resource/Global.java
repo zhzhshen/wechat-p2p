@@ -1,8 +1,5 @@
 package Resource;
 
-/**
- * Created by twer on 4/15/15.
- */
 public interface Global {
     /**
      * App parameters
@@ -43,6 +40,10 @@ public interface Global {
     public final static String EVENT_SALES_INFO = "EVENT_SALES_INFO";
 
     public final static String SUBJECTS_URL = "http://52.68.149.90/www/#/subjects";
+    public final static String MY_SUBJECTS_URL = "http://52.68.149.90/www/#/myInvestments";
+    public final static String TRANSACTION_HISTORY_URL = "http://52.68.149.90/www/#/transactionHistory";
+    public final static String TOPUP_URL = "http://52.68.149.90/www/#/topup";
+    public final static String WITHDRAW_URL = "http://52.68.149.90/www/#/withdraw";
 
     /**
      * Messages

@@ -28,30 +28,30 @@ public class MenuManagerApp {
      * @return
      */
     private static Menu getMenu() {
-        BasicButton btn11 = new BasicButton();
+        ViewButton btn11 = new ViewButton();
         btn11.setName("账户资金");
-        btn11.setType("click");
-        btn11.setKey(Global.EVENT_ACCOUNT_PROFILE);
+        btn11.setType("view");
+        btn11.setUrl(Global.TRANSACTION_HISTORY_URL);
 
-        BasicButton btn12 = new BasicButton();
+        ViewButton btn12 = new ViewButton();
         btn12.setName("持有标的");
-        btn12.setType("click");
-        btn12.setKey(Global.EVENT_SUBJECTS);
+        btn12.setType("view");
+        btn12.setUrl(Global.MY_SUBJECTS_URL);
 
-        BasicButton btn13 = new BasicButton();
+        ViewButton btn13 = new ViewButton();
         btn13.setName("充值");
-        btn13.setType("click");
-        btn13.setKey(Global.EVENT_TOPUP);
+        btn13.setType("view");
+        btn13.setUrl(Global.TOPUP_URL);
 
-        BasicButton btn14 = new BasicButton();
+        ViewButton btn14 = new ViewButton();
         btn14.setName("取现");
-        btn14.setType("click");
-        btn14.setKey(Global.EVENT_WITHDRAW);
+        btn14.setType("view");
+        btn14.setUrl(Global.WITHDRAW_URL);
         
 
         ComplexButton mainBtn1 = new ComplexButton();
         mainBtn1.setName("我的资产");
-        mainBtn1.setSub_button(new BasicButton[]{btn11, btn12, btn13, btn14});
+        mainBtn1.setSub_button(new Button[]{btn11, btn12, btn13, btn14});
 
 
         ViewButton btn2 = new ViewButton();

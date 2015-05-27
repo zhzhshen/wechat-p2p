@@ -26,10 +26,16 @@ public class TextMessageHandler implements IMessageHandler{
         }
         else if (content.equals("1")){
             result = getLoginPage(openId);
-        } else {
+        } else if (content.equals("2")) {
+            result = getHomePage();
+        } else{
             result = getMainMenu();
         }
         return result;
+    }
+
+    private String getHomePage() {
+        return "<a href=\"http://52.68.149.90/www/#/\">Home</a>";
     }
 
     public String processRequest(String content){
