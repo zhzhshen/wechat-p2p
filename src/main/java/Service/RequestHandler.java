@@ -1,6 +1,7 @@
 package Service;
 
 import Entity.Response.TextMessage;
+import Resource.Global;
 import Util.MessageUtil;
 import Util.SignUtil;
 import org.slf4j.Logger;
@@ -8,26 +9,21 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by twer on 4/14/15.
- *
+ * <p>
  * Handle the incoming requests
  */
-public class RequestHandler{
+public class RequestHandler {
     static Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
-    public static String processRequest(HttpServletRequest request) {
-        String respMessage = "Empty Message";
-
-        // 默认返回的文本消息内容
-        String respContent = "请求处理异常，请稍候尝试！";
-
+    public static Map<String, String> processRequest(HttpServletRequest request) {
         // xml请求解析
         Map<String, String> requestMap = null;
 
-//        System.setProperty("org.xml.sax.driver","org.xmlpull.v1.sax2.Driver");
         try {
             requestMap = MessageUtil.parseXml(request);
         } catch (Exception e) {
@@ -35,39 +31,36 @@ public class RequestHandler{
         }
 
         String openId = requestMap.get("FromUserName");
-        // 公众帐号
         String toUserName = requestMap.get("ToUserName");
-        // 消息类型
         String msgType = requestMap.get("MsgType");
-        String content = requestMap.get("Content");
 
-        // 回复文本消息
-        TextMessage textMessage = new TextMessage();
-        textMessage.setToUserName(openId);
-        textMessage.setFromUserName(toUserName);
-        textMessage.setCreateTime(new Date().getTime());
-        textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
-//            textMessage.setFuncFlag(0);
+        HashMap<String, String> responseMap = new HashMap<String, String>();
 
         // 文本消息
         if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-            respContent = TextMessageHandler.getInstance().processRequest(openId, content);
+            String respContent = TextMessageHandler.getInstance().processRequest(openId, requestMap.get("Content"));
+            String respMessage = returnTextMessage(openId, toUserName, respContent);
+
+            responseMap.put("type", Global.RESPONSE_TYPE_MESSAGE);
+            responseMap.put("content", respMessage);
+
+            return responseMap;
         }
         // 图片消息
         else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
-            respContent = "您发送的是图片消息！";
+            return null;
         }
         // 地理位置消息
         else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) {
-            respContent = "您发送的是地理位置消息！";
+            return null;
         }
         // 链接消息
         else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) {
-            respContent = "您发送的是链接消息！";
+            return null;
         }
         // 音频消息
         else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
-            respContent = "您发送的是音频消息！";
+            return null;
         }
         // 事件推送
         else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
@@ -76,22 +69,45 @@ public class RequestHandler{
             String eventKey = requestMap.get("EventKey");
             // 订阅
             if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                respContent = "谢谢您的关注！";
+
             }
             // 取消订阅
             else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
+
             }
-            // 自定义菜单点击事件
+            // 自定义菜单点击CLICK事件
             else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
                 log.debug("自定义菜单click事件");
-                respContent = EventMessageHandler.getInstance().processRequest(eventKey,content);
+                String respMessage = returnTextMessage(openId, toUserName, EventMessageHandler.getInstance().processClickRequest(eventKey, openId));
+
+                responseMap.put("type", Global.RESPONSE_TYPE_MESSAGE);
+                responseMap.put("content", respMessage);
+
+                return responseMap;
+            }
+            // 自定义菜单点击VIEW事件
+            else if (eventType.equals(MessageUtil.EVENT_TYPE_VIEW)) {
+                log.debug("自定义菜单view事件");
+
+                responseMap.put("type", Global.RESPONSE_TYPE_MESSAGE);
+                responseMap.put("content", requestMap.get("EventKey"));
+
+                return responseMap;
             }
         }
+        return null;
+    }
 
-        textMessage.setContent(respContent);
-        respMessage = MessageUtil.textMessageToXml(textMessage);
+    private static String returnTextMessage(String openId,String toUserName,String content) {
+        TextMessage textMessage = new TextMessage();
+        textMessage.setToUserName(openId);
+        textMessage.setFromUserName(toUserName);
+        textMessage.setCreateTime(new Date().getTime());
+        textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 
-        return respMessage;
+        textMessage.setContent(content);
+
+        return MessageUtil.textMessageToXml(textMessage);
     }
 
     public static boolean validate(HttpServletRequest request) {
@@ -100,9 +116,9 @@ public class RequestHandler{
         String nonce = request.getParameter("nonce");
 
         log.debug("request received!");
-        log.debug("signature:"+signature);
-        log.debug("timestamp:"+timestamp);
-        log.debug("nonce:"+nonce);
+        log.debug("signature:" + signature);
+        log.debug("timestamp:" + timestamp);
+        log.debug("nonce:" + nonce);
 
 
         if (SignUtil.checkSignature(signature, timestamp, nonce)) {

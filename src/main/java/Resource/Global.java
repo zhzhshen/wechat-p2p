@@ -50,4 +50,10 @@ public interface Global {
      */
     public final static String MESSAGE_NEED_LOGIN = "NEED_TO_LOGIN";
 
+    /**
+     * Response type
+     */
+    public final static String RESPONSE_TYPE_MESSAGE = "MESSAGE";
+    public final static String RESPONSE_TYPE_URL = "URL";
+
 }

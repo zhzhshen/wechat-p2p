@@ -1,5 +1,6 @@
 package Servlet;
 
+import Resource.Global;
 import Service.RequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 /**
  * Created by twer on 4/13/15.
@@ -44,10 +46,14 @@ public class CoreServlet extends HttpServlet {
 //            return;
 //        }
 
-        String respMessage = RequestHandler.processRequest(request);
+        Map<String, String> responseMap = RequestHandler.processRequest(request);
 
-        PrintWriter out = response.getWriter();
-        out.print(respMessage);
-        out.close();
+        if(responseMap.get("type")== Global.RESPONSE_TYPE_MESSAGE){
+            PrintWriter out = response.getWriter();
+            out.print(responseMap.get("content"));
+            out.close();
+        } else if (responseMap.get("type")== Global.RESPONSE_TYPE_URL) {
+            response.sendRedirect(responseMap.get("content"));
+        }
     }
 }
