@@ -10,10 +10,20 @@
             Servlet.CoreServlet
         </servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>CoreServlet</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MobileCheckServlet</servlet-name>
+        <servlet-class>
+            Servlet.MobileCheckServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MobileCheckServlet</servlet-name>
+        <url-pattern>/mobileCheck</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -23,13 +33,12 @@
         </servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>AccessTokenServlet</servlet-name>
         <url-pattern>/accessToken</url-pattern>
     </servlet-mapping>
 
     <!--<welcome-file-list>-->
-        <!--<welcome-file>index.jsp</welcome-file>-->
+    <!--<welcome-file>index.jsp</welcome-file>-->
     <!--</welcome-file-list>-->
 </web-app>

@@ -38,12 +38,18 @@ public interface Global {
     public final static String EVENT_WITHDRAW = "EVENT_WITHDRAW";
     public final static String EVENT_INVESTMENT = "EVENT_INVESTMENT";
     public final static String EVENT_SALES_INFO = "EVENT_SALES_INFO";
+    
+    public final static String WECHAT_FRONT = "http://www.davidlin.science/front/#";
 
-    public final static String SUBJECTS_URL = "http://52.68.149.90/www/#/subjects";
-    public final static String MY_SUBJECTS_URL = "http://52.68.149.90/www/#/myInvestments";
-    public final static String TRANSACTION_HISTORY_URL = "http://52.68.149.90/www/#/transactionHistory";
-    public final static String TOPUP_URL = "http://52.68.149.90/www/#/topup";
-    public final static String WITHDRAW_URL = "http://52.68.149.90/www/#/withdraw";
+    public final static String WECHAT_BACKEND = "http://52.68.149.90/wechat";
+
+    public final static String SUBJECTS_URL = WECHAT_FRONT + "/subjects";
+    public final static String MY_SUBJECTS_URL = WECHAT_FRONT + "/myInvestments";
+    public final static String TRANSACTION_HISTORY_URL = WECHAT_FRONT + "/transactionHistory";
+    public final static String TOPUP_URL = WECHAT_FRONT + "/topup";
+    public final static String WITHDRAW_URL = WECHAT_FRONT + "/withdraw";
+    public final static String MOBILE = WECHAT_BACKEND + "/mobileCheck";
+    public final static String REGISTER_URL="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+APP_ID+"&redirect_uri="+"http%3A%2F%2Fwww.davidlin.science%2Fwechat%2FmobileCheck"+"&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
 
     /**
      * Messages

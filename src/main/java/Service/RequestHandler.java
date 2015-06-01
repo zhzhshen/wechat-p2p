@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by twer on 4/14/15.
@@ -69,7 +70,12 @@ public class RequestHandler {
             String eventKey = requestMap.get("EventKey");
             // 订阅
             if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
+                String respMessage = "Welcome!";
 
+                responseMap.put("type", Global.RESPONSE_TYPE_MESSAGE);
+                responseMap.put("content", respMessage);
+
+                return responseMap;
             }
             // 取消订阅
             else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
@@ -88,8 +94,15 @@ public class RequestHandler {
             // 自定义菜单点击VIEW事件
             else if (eventType.equals(MessageUtil.EVENT_TYPE_VIEW)) {
                 log.debug("自定义菜单view事件");
+                if(eventKey.endsWith(Global.MOBILE)) {
+                    eventKey = eventKey + "/"+ UUID.randomUUID().toString();
+                    responseMap.put("type", Global.RESPONSE_TYPE_URL);
+                    responseMap.put("content", eventKey);
+                    log.debug("=="+eventKey+"==");
+                    return responseMap;
+                }
 
-                responseMap.put("type", Global.RESPONSE_TYPE_MESSAGE);
+                responseMap.put("type", Global.RESPONSE_TYPE_URL);
                 responseMap.put("content", requestMap.get("EventKey"));
 
                 return responseMap;
@@ -104,7 +117,6 @@ public class RequestHandler {
         textMessage.setFromUserName(toUserName);
         textMessage.setCreateTime(new Date().getTime());
         textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
-
         textMessage.setContent(content);
 
         return MessageUtil.textMessageToXml(textMessage);
@@ -115,10 +127,10 @@ public class RequestHandler {
         String timestamp = request.getParameter("timestamp");
         String nonce = request.getParameter("nonce");
 
-        log.debug("request received!");
-        log.debug("signature:" + signature);
-        log.debug("timestamp:" + timestamp);
-        log.debug("nonce:" + nonce);
+//        log.debug("request received!");
+//        log.debug("signature:" + signature);
+//        log.debug("timestamp:" + timestamp);
+//        log.debug("nonce:" + nonce);
 
 
         if (SignUtil.checkSignature(signature, timestamp, nonce)) {

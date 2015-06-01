@@ -1,6 +1,5 @@
 package Servlet;
 
-import Resource.Global;
 import Service.RequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,7 @@ public class CoreServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.debug("core Get request received");
         if (!RequestHandler.validate(request)) {
             return;
         }
@@ -37,7 +37,7 @@ public class CoreServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.debug("Post request received");
+        logger.debug("core Post request received");
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -46,14 +46,22 @@ public class CoreServlet extends HttpServlet {
 //            return;
 //        }
 
+
         Map<String, String> responseMap = RequestHandler.processRequest(request);
 
-        if(responseMap.get("type")== Global.RESPONSE_TYPE_MESSAGE){
-            PrintWriter out = response.getWriter();
-            out.print(responseMap.get("content"));
-            out.close();
-        } else if (responseMap.get("type")== Global.RESPONSE_TYPE_URL) {
-            response.sendRedirect(responseMap.get("content"));
-        }
+//        if(responseMap.get("type")== Global.RESPONSE_TYPE_MESSAGE){
+//            logger.debug("===========TextMessage:"+responseMap.get("content")+"==========");
+//            PrintWriter out = response.getWriter();
+//            out.print(responseMap.get("content"));
+//            out.close();
+//        } else if (responseMap.get("type")== Global.RESPONSE_TYPE_URL) {
+//            logger.debug("===========redirecting:" + responseMap.get("content") + "==========");
+//            response.addHeader("openId", "openId");
+//            response.addCookie(new Cookie("openId", "openId"));
+//        }
+
+        PrintWriter out = response.getWriter();
+        out.print(responseMap.get("content"));
+        out.close();
     }
 }

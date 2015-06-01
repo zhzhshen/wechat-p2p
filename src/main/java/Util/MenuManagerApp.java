@@ -47,11 +47,21 @@ public class MenuManagerApp {
         btn14.setName("取现");
         btn14.setType("view");
         btn14.setUrl(Global.WITHDRAW_URL);
-        
+
+        ViewButton btn15 = new ViewButton();
+        btn15.setName("注册");
+        btn15.setType("view");
+        btn15.setUrl(Global.REGISTER_URL);
+
+        ViewButton bt16 = new ViewButton();
+        bt16.setName("Test");
+        bt16.setType("view");
+        bt16.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx520c15f417810387&redirect_uri=http%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&response_type=code&scope=snsapi_base&state=123#wechat_redirect");
+
 
         ComplexButton mainBtn1 = new ComplexButton();
         mainBtn1.setName("我的资产");
-        mainBtn1.setSub_button(new Button[]{btn11, btn12, btn13, btn14});
+        mainBtn1.setSub_button(new Button[]{btn11, btn12, btn14, btn15, bt16});
 
 
         ViewButton btn2 = new ViewButton();
