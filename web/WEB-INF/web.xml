@@ -15,17 +15,6 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <!--<servlet>-->
-        <!--<servlet-name>MobileCheckServlet</servlet-name>-->
-        <!--<servlet-class>-->
-            <!--Servlet.MobileCheckServlet-->
-        <!--</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>MobileCheckServlet</servlet-name>-->
-        <!--<url-pattern>/mobileCheck</url-pattern>-->
-    <!--</servlet-mapping>-->
-
     <servlet>
         <servlet-name>AccessTokenServlet</servlet-name>
         <servlet-class>
