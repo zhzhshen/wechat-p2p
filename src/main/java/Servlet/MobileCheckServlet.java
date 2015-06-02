@@ -6,20 +6,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class MobileCheckServlet extends HttpServlet{
+@Path("/mobileCheck")
+public class MobileCheckServlet{
     private static Logger logger = LoggerFactory.getLogger(AccessTokenServlet.class);
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    protected void doGet(@Context HttpServletRequest req) throws Exception{
         logger.debug("get mobile check");
         String code = req.getParameter("code");
 
@@ -45,11 +48,9 @@ public class MobileCheckServlet extends HttpServlet{
         JSONObject jsonObject = new JSONObject(response.toString());
         String openId = jsonObject.getString("openid");
         String accessToken = jsonObject.getString("access_token");
-
         logger.debug(openId+":"+accessToken);
-    }
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.debug("post mobile check");
+
+
+
     }
 }
