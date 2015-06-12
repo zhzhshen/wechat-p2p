@@ -1,5 +1,7 @@
 package Resource;
 
+import Util.WechatRedirectUrlUtil;
+
 public interface Global {
     /**
      * App parameters
@@ -43,12 +45,13 @@ public interface Global {
     public final static String WECHAT_FRONT = "http://www.davidlin.science";
 
     public final static String SUBJECTS_URL = WECHAT_FRONT + "/subjects";
-    public final static String MY_SUBJECTS_URL = WECHAT_FRONT + "/myInvestments";
-    public final static String TRANSACTION_HISTORY_URL = WECHAT_FRONT + "/transactionHistory";
-    public final static String TOPUP_URL = WECHAT_FRONT + "/topup";
-    public final static String WITHDRAW_URL = WECHAT_FRONT + "/withdraw";
+    public final static String MY_SUBJECTS_URL = WechatRedirectUrlUtil.getUrl(WECHAT_FRONT + "/myInvestments");
+    public final static String MY_PROFILE_URL = WechatRedirectUrlUtil.getUrl(WECHAT_FRONT + "/profile");
+    public final static String TRANSACTION_HISTORY_URL = WechatRedirectUrlUtil.getUrl(WECHAT_FRONT + "/transactionHistory");
+    public final static String TOPUP_URL = WechatRedirectUrlUtil.getUrl(WECHAT_FRONT + "/topup");
+    public final static String WITHDRAW_URL = WechatRedirectUrlUtil.getUrl(WECHAT_FRONT + "/withdraw");
     public final static String MOBILE = WECHAT_FRONT + "/mobileCheck";
-    public final static String REGISTER_URL="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+APP_ID+"&redirect_uri="+"http%3A%2F%2Fwww.davidlin.science%2FmobileCheck"+"&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
+    public final static String REGISTER_URL= WechatRedirectUrlUtil.getUrl("http%3A%2F%2Fwww.davidlin.science%2FmobileCheck");
 
     /**
      * Messages
